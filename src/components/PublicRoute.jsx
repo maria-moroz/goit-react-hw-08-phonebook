@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { getUserToken } from 'redux/auth/authSlice';
 
 export default function PublicRoute({
@@ -15,3 +16,9 @@ export default function PublicRoute({
     children
   );
 }
+
+PublicRoute.propTypes = {
+  children: PropTypes.any,
+  restricted: PropTypes.bool,
+  redirectTo: PropTypes.string,
+};
