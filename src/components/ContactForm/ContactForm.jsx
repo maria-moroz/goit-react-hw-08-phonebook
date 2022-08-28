@@ -1,11 +1,9 @@
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
-import { getIsLoading } from 'redux/contacts/contactsSlice';
-import operations from 'redux/contacts/contactsOperations';
+import { useAddContactMutation } from 'redux/contacts/contactsApi';
 
 import 'styles/form.css';
 
@@ -13,8 +11,7 @@ export default function ContactForm({ contacts }) {
   const [contactName, setContactName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
 
-  const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
+  const [addContact, { isLoading, isError }] = useAddContactMutation();
 
   const handleFormSubmit = async e => {
     e.preventDefault();
@@ -30,7 +27,7 @@ export default function ContactForm({ contacts }) {
       return;
     }
 
-    dispatch(operations.addContact(contact));
+    addContact(contact);
 
     setContactName('');
     setContactNumber('');
@@ -57,6 +54,9 @@ export default function ContactForm({ contacts }) {
 
   return (
     <>
+      {isError && (
+        <p className="error">Something went wrong :( Please try again.</p>
+      )}
       <form className="formContainer" onSubmit={handleFormSubmit}>
         <div className="formFieldContainer">
           <label htmlFor={nameId} className="formLabel">
@@ -106,7 +106,7 @@ ContactForm.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      phone: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
     }).isRequired
   ).isRequired,
 };

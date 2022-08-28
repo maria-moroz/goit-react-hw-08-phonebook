@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import s from './AppBar.module.css';
 import UserMenu from 'components/UserMenu/UserMenu';
-import { getIsLoggedIn } from 'redux/auth/authSlice';
+import { getUserToken } from 'redux/auth/authSlice';
 
 const StyledLink = styled(NavLink)`
   border-radius: 4px;
@@ -30,7 +30,7 @@ const StyledLink = styled(NavLink)`
 `;
 
 export default function AppBar() {
-  const isLoggedIn = useSelector(getIsLoggedIn);
+  const userToken = useSelector(getUserToken);
   return (
     <header className={s.header}>
       <nav className={s.navigation}>
@@ -38,7 +38,7 @@ export default function AppBar() {
           <BsHouseDoorFill />
           <span className={s.homeLinkText}>Home</span>
         </Link>
-        {isLoggedIn && (
+        {userToken && (
           <div className={s.appNav}>
             <StyledLink to="/contacts-list" className={s.navLink}>
               My contacts
@@ -49,7 +49,7 @@ export default function AppBar() {
           </div>
         )}
       </nav>
-      {!isLoggedIn && (
+      {!userToken && (
         <div className={s.authNav}>
           <StyledLink to="/login" className={s.navLink}>
             Sign in
@@ -59,7 +59,7 @@ export default function AppBar() {
           </StyledLink>
         </div>
       )}
-      {isLoggedIn && <UserMenu />}
+      {userToken && <UserMenu />}
     </header>
   );
 }

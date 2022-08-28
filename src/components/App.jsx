@@ -1,9 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
-import { Suspense } from 'react';
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
+import { useSelector } from 'react-redux';
 import SharedLayout from './SharedLayout/SharedLayout';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import { useGetCurrentUserQuery } from 'redux/auth/authApi';
+import { getUserToken } from 'redux/auth/authSlice';
 
 const Home = lazy(() => import('pages/Home/Home'));
 const Login = lazy(() => import('pages/Login/Login'));
@@ -13,6 +15,12 @@ const AddContact = lazy(() => import('pages/AddContact/AddContact'));
 const ErrorView = lazy(() => import('pages/ErrorView/ErrorView'));
 
 export default function App() {
+  const token = useSelector(getUserToken);
+
+  useGetCurrentUserQuery(undefined, {
+    skip: !token,
+  });
+
   return (
     <Suspense fallback={null}>
       <Routes>

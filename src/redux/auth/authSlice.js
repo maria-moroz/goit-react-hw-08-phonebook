@@ -1,53 +1,62 @@
 import { createSlice } from '@reduxjs/toolkit';
-import operations from './authOperations';
+import { authApi } from './authApi';
 
 const initialState = {
-  user: { name: null, email: null },
-  token: null,
-  isLoggedIn: false,
-  isFetchingCurrentUser: false,
+  name: '',
+  email: '',
+  token: '',
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  extraReducers: {
-    [operations.register.fulfilled](state, action) {
-      console.log(action.payload);
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-    },
-    [operations.login.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isLoggedIn = true;
-    },
-    [operations.logout.fulfilled](state, action) {
-      state.user = { name: null, email: null };
-      state.token = null;
-      state.isLoggedIn = false;
-    },
-    [operations.logout.fulfilled](state, action) {
-      state.user = { name: null, email: null };
-      state.token = null;
-      state.isLoggedIn = false;
-    },
-    [operations.fetchCurrentUser.pending](state) {
-      state.isFetchingCurrentUser = true;
-    },
-    [operations.fetchCurrentUser.fulfilled](state, action) {
-      state.user = action.payload;
-      state.isLoggedIn = true;
-      state.isFetchingCurrentUser = false;
-    },
-    [operations.fetchCurrentUser.rejected](state) {
-      state.isFetchingCurrentUser = false;
-    },
+  reducers: {},
+  extraReducers: builder => {
+    //login
+    builder.addMatcher(
+      authApi.endpoints.login.matchFulfilled,
+      (state, { payload }) => {
+        state.token = payload.token;
+        state.name = payload.user.name;
+        state.email = payload.user.email;
+      }
+    );
+    //register
+    builder.addMatcher(
+      authApi.endpoints.register.matchFulfilled,
+      (state, { payload }) => {
+        state.token = payload.token;
+        state.name = payload.user.name;
+        state.email = payload.user.email;
+      }
+    );
+    //logout
+    builder.addMatcher(authApi.endpoints.logout.matchFulfilled, state => {
+      state.token = initialState.token;
+      state.name = initialState.name;
+      state.email = initialState.email;
+    });
+    //current
+    builder.addMatcher(
+      authApi.endpoints.getCurrentUser.matchFulfilled,
+      (state, { payload }) => {
+        state.email = payload.email;
+        state.name = payload.name;
+      }
+    );
+    //error
+    builder.addMatcher(
+      authApi.endpoints.getCurrentUser.matchRejected,
+      (state, { payload }) => {
+        if (payload?.status === 401) {
+          state.token = initialState.token;
+        }
+      }
+    );
   },
 });
 
-export const getUserName = state => state.auth.user.name;
-export const getIsLoggedIn = state => state.auth.isLoggedIn;
-export const getisFetchingCurrentUser = state =>
-  state.auth.isFetchingCurrentUser;
+export const getUserName = state => state.auth.name;
+export const getUserToken = state => state.auth.token;
+
+export default authSlice.reducer;

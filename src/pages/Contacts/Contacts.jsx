@@ -14,11 +14,15 @@ export default function Contacts() {
         You have <span>{contactsNumber}</span> contacts
       </h1>
       <Filter />
-      {isLoading && <ClipLoader />}
+      {isLoading && (
+        <div className={s.loader}>
+          <ClipLoader />
+        </div>
+      )}
       {isSuccess && filteredContacts && (
         <ContactList contacts={filteredContacts} />
       )}
-      {error && <p>Sorry, we can't find your contacts :( </p>}
+      {error && <p className="error">Sorry, we can't find your contacts :( </p>}
     </div>
   );
 }

@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import s from './Home.module.css';
 import { TiContacts } from 'react-icons/ti';
+import { getUserToken } from 'redux/auth/authSlice';
 
 export default function Home() {
+  const token = useSelector(getUserToken);
   return (
     <div className={s.container}>
       <div className={s.info}>
@@ -17,7 +20,7 @@ export default function Home() {
           <br /> we'll remember them for you.
         </p>
         <Link to="/login" className={s.link}>
-          Let's start
+          {token ? 'My contacts' : "Let's start"}
         </Link>
       </div>
     </div>

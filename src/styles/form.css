@@ -56,3 +56,8 @@
 .formSubmitButton:hover {
   background-color: var(--accent-hover-color);
 }
+
+.error {
+  color: #d0312d;
+  text-align: center;
+}

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-import { useDispatch } from 'react-redux';
-import operations from 'redux/auth/authOperations';
+import { useLoginMutation } from 'redux/auth/authApi';
 
 import 'styles/form.css';
 
@@ -9,12 +8,12 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch();
+  const [login, { isLoading, isError }] = useLoginMutation();
 
-  const handleFormSubmit = async e => {
+  const handleFormSubmit = e => {
     e.preventDefault();
     const contact = { email, password };
-    dispatch(operations.login(contact));
+    login(contact);
     setEmail('');
     setPassword('');
   };
@@ -39,39 +38,44 @@ export default function LoginForm() {
   };
 
   return (
-    <form className="formContainer" onSubmit={handleFormSubmit}>
-      <div className="formFieldContainer">
-        <label className="formLabel" htmlFor={emailId}>
-          Email adress
-        </label>
-        <input
-          className="formInput"
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleInputChange}
-          autoComplete="off"
-          autoFocus
-          required
-        />
-      </div>
-      <div className="formFieldContainer">
-        <label className="formLabel" htmlFor={passwordId}>
-          Password
-        </label>
-        <input
-          className="formInput"
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleInputChange}
-          autoComplete="off"
-          required
-        />
-      </div>
-      <button className="formSubmitButton" type="submit">
-        Sign in
-      </button>
-    </form>
+    <>
+      {isError && (
+        <p className="error">Something went wrong :( Please try again.</p>
+      )}
+      <form className="formContainer" onSubmit={handleFormSubmit}>
+        <div className="formFieldContainer">
+          <label className="formLabel" htmlFor={emailId}>
+            Email adress
+          </label>
+          <input
+            className="formInput"
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleInputChange}
+            autoComplete="off"
+            autoFocus
+            required
+          />
+        </div>
+        <div className="formFieldContainer">
+          <label className="formLabel" htmlFor={passwordId}>
+            Password
+          </label>
+          <input
+            className="formInput"
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleInputChange}
+            autoComplete="off"
+            required
+          />
+        </div>
+        <button className="formSubmitButton" disabled={isLoading} type="submit">
+          Sign in
+        </button>
+      </form>
+    </>
   );
 }
