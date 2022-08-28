@@ -1,0 +1,17 @@
+.formContainer {
+  composes: formFieldContainer from 'styles/form.css';
+  width: fit-content;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 30px;
+}
+
+.label {
+  composes: formLabel from 'styles/form.css';
+  font-size: 16px;
+}
+
+.input {
+  composes: formInput from 'styles/form.css';
+  width: 300px;
+}

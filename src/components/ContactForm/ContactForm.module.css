@@ -1,0 +1,56 @@
+@import '../../variables/variables.css';
+.container {
+  border: 1.5px solid var(--input-border-color);
+  border-radius: 6px;
+  width: 350px;
+  padding: 30px;
+  background-color: #f6f8fa;
+}
+
+.fieldContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.label {
+  display: inline;
+  margin-bottom: 5px;
+  font-size: 14px;
+  margin-left: 2px;
+}
+
+.input {
+  width: 100%;
+  border-radius: 6px;
+  border: var(--input-border-color) solid 1px;
+  outline: none;
+
+  padding: 4px 8px;
+
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: var(--secondary-color) solid 2px;
+}
+
+.submitButton {
+  padding: 8px 20px;
+  width: 100%;
+
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+
+  font-weight: 400;
+  color: var(--primary-white-color);
+  background-color: var(--accent-color);
+  transition: var(--transition-duration) var(--transition-timing-function);
+
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: var(--accent-hover-color);
+}

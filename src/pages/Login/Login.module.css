@@ -1,0 +1,21 @@
+.header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.text {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.link {
+  color: var(--secondary-color);
+  margin-left: 5px;
+}
+
+.link:hover,
+.link:focus {
+  color: var(--secondary-color);
+}

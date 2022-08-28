@@ -1,0 +1,61 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 450px;
+  margin-right: 0;
+  border: 1.5px solid var(--input-border-color);
+  border-radius: 6px;
+  padding: 14px;
+  background-color: #f6f8fa;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.contact {
+  margin-right: 10px;
+  margin-bottom: 0;
+}
+
+.contact span {
+  color: var(--accent-color);
+}
+
+.name {
+  margin-bottom: 2px;
+}
+
+.phone {
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  padding: 6px 8px;
+  width: 100px;
+
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+
+  font-weight: 400;
+  color: var(--primary-white-color);
+  background-color: var(--accent-color);
+  transition: var(--transition-duration) var(--transition-timing-function);
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--accent-hover-color);
+}
+
+.button span {
+  margin-left: 2px;
+}

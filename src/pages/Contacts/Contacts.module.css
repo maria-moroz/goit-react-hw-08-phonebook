@@ -1,0 +1,10 @@
+.header {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.header span {
+  color: var(--secondary-color);
+}

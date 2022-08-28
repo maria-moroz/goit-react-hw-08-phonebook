@@ -1,0 +1,13 @@
+:root {
+  --text-color: #000;
+  --primary-white-color: #fff;
+  --input-border-color: #d6dbdf;
+  --input-border-focus-color: #ffb4b4;
+  --accent-color: #377d71;
+  --accent-hover-color: #395b64;
+  --secondary-color: #8879b0;
+  --light-background-color: #e7f6f2;
+  --transition-duration: 250ms;
+  --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+}
