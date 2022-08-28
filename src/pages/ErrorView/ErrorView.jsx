@@ -6,7 +6,7 @@ export default function ErrorView() {
     <div className={s.container}>
       <img src={ErrorImage} className={s.image} alt="Error" width="250" />
       <p className={s.message}>
-        Sorry, can't find movies :(
+        Sorry, can't find page :(
         <br />
         Please, try again.
       </p>
