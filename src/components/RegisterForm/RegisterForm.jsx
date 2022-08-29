@@ -15,9 +15,6 @@ export default function RegisterForm() {
     e.preventDefault();
     const contact = { name, email, password };
     register(contact);
-    setName('');
-    setEmail('');
-    setPassword('');
   };
 
   const nameId = nanoid();

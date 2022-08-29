@@ -14,8 +14,6 @@ export default function LoginForm() {
     e.preventDefault();
     const contact = { email, password };
     login(contact);
-    setEmail('');
-    setPassword('');
   };
 
   const emailId = nanoid();

@@ -65,8 +65,8 @@ export default function App() {
               </PrivateRoute>
             }
           />
+          <Route path="*" element={<ErrorView />} />
         </Route>
-        <Route path="*" element={<ErrorView />} />
       </Routes>
     </Suspense>
   );
